@@ -1,22 +1,52 @@
 package com.springBoot.data.models;
 
+import org.springframework.data.cassandra.core.mapping.Column;
+import org.springframework.data.cassandra.core.mapping.PrimaryKey;
+import org.springframework.data.cassandra.core.mapping.Table;
+
+@Table("Levels")
 public class Levels {
 	
+	@PrimaryKey("levelid")
+	private long levelId;
+	
+	@Column(value="requestid")
+	private long requestId;
 	private int level;
+	@Column(value="noofposition")
 	private int noOfPosition;
+	@Column(value="salarybracket")
 	private int salaryBracket;
 	private Skills skills;
 	
 	public Levels(){
 		
 	}
-	
-	public Levels(int level, int noOfPosition, int salaryBracket, Skills skills) {
+
+	public Levels(long levelId, long requestId, int level, int noOfPosition, int salaryBracket, Skills skills) {
 		super();
+		this.levelId = levelId;
+		this.requestId = requestId;
 		this.level = level;
 		this.noOfPosition = noOfPosition;
 		this.salaryBracket = salaryBracket;
 		this.skills = skills;
+	}
+
+	public long getLevelId() {
+		return levelId;
+	}
+
+	public void setLevelId(long levelId) {
+		this.levelId = levelId;
+	}
+
+	public long getRequestId() {
+		return requestId;
+	}
+
+	public void setRequestId(long requestId) {
+		this.requestId = requestId;
 	}
 
 	public int getLevel() {
@@ -50,5 +80,7 @@ public class Levels {
 	public void setSkills(Skills skills) {
 		this.skills = skills;
 	}
+	
+	
 	
 }

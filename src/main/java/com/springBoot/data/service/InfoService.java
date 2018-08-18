@@ -1,35 +1,31 @@
 package com.springBoot.data.service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.springBoot.data.models.InterviewInfo;
 import com.springBoot.data.models.Levels;
-import com.springBoot.data.models.Skills;
+import com.springBoot.data.repos.InterviewInfoRepository;
+import com.springBoot.data.repos.LevelsRepository;
 
 @Service
 public class InfoService {
 	
-	private List<InterviewInfo> info = new ArrayList<InterviewInfo>(Arrays.asList(
-			new InterviewInfo("1", 2, "Delaware", "ABC", "Machine learning", "Digital", new ArrayList<>(Arrays.asList(
-					new Levels(4, 1,10000,
-							new Skills("Python", "Statistics", "Data scientist")),
-							new Levels(5,1,15000,new Skills("Pega","Java","Architect")))))
-			));
-
+	@Autowired
+	private InterviewInfoRepository interviewInfoRepository;
+	
+	@Autowired
+	private LevelsRepository levelsRepository;
+	
 	public List<InterviewInfo> getAllInterviewInfo(){
-		return info;
-	}
-	
-	public InterviewInfo getInterviewInfo(String id){
-		return info.stream().filter(t -> t.getRequestId().equals(id)).findFirst().get();
+		List<InterviewInfo> infos = interviewInfoRepository.getAllInfo();
+		for (InterviewInfo info:infos){
+			List<Levels> levels = levelsRepository.getLevelsByReqId(info.getRequestId());
+			info.setLevels(levels);
+		}
 		
-	}
-	
-	public void addInterviewInfo(InterviewInfo addInfo){
-		info.add(addInfo);
+		return infos;
 	}
 }

@@ -2,24 +2,32 @@ package com.springBoot.data.models;
 
 import java.util.List;
 
-import org.springframework.hateoas.ResourceSupport;
+import org.springframework.data.annotation.Transient;
+import org.springframework.data.cassandra.core.mapping.Column;
+import org.springframework.data.cassandra.core.mapping.PrimaryKey;
+import org.springframework.data.cassandra.core.mapping.Table;
 
-public class InterviewInfo extends ResourceSupport {
-	
-	private String requestId;
+
+@Table("InterviewInfo")
+public class InterviewInfo {
+	@PrimaryKey("requestid")
+	private long requestId;
+	@Column(value = "totalnoofposition")
 	private int totalNoOfPosition;
 	private String location;
 	private String client;
 	private String skillset;
+	@Column(value = "projectname")
 	private String projectName;
 	
+	@Transient
 	private List<Levels> levels;
 	
 	public InterviewInfo(){
 		
 	}
 
-	public InterviewInfo(String requestId, int totalNoOfPosition, String location, String client, String skillset,
+	public InterviewInfo(long requestId, int totalNoOfPosition, String location, String client, String skillset,
 			String projectName, List<Levels> levels) {
 		super();
 		this.requestId = requestId;
@@ -31,11 +39,11 @@ public class InterviewInfo extends ResourceSupport {
 		this.levels = levels;
 	}
 
-	public String getRequestId() {
+	public long getRequestId() {
 		return requestId;
 	}
 
-	public void setRequestId(String requestId) {
+	public void setRequestId(long requestId) {
 		this.requestId = requestId;
 	}
 
@@ -86,8 +94,5 @@ public class InterviewInfo extends ResourceSupport {
 	public void setLevels(List<Levels> levels) {
 		this.levels = levels;
 	}
-	
-	
-	
 
 }
