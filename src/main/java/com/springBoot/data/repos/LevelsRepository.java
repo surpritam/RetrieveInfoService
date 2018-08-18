@@ -1,4 +1,4 @@
-package com.springBoot.data.repositories;
+package com.springBoot.data.repos;
 
 import java.util.List;
 
