@@ -6,10 +6,11 @@ import org.springframework.data.annotation.Transient;
 import org.springframework.data.cassandra.core.mapping.Column;
 import org.springframework.data.cassandra.core.mapping.PrimaryKey;
 import org.springframework.data.cassandra.core.mapping.Table;
+import org.springframework.hateoas.ResourceSupport;
 
 
 @Table("InterviewInfo")
-public class InterviewInfo {
+public class InterviewInfo extends ResourceSupport {
 	@PrimaryKey("requestid")
 	private long requestId;
 	@Column(value = "totalnoofposition")

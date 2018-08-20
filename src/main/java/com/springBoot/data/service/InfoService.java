@@ -3,8 +3,11 @@ package com.springBoot.data.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.Link;
+import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.stereotype.Service;
 
+import com.springBoot.data.controllers.InfoController;
 import com.springBoot.data.models.InterviewInfo;
 import com.springBoot.data.models.Levels;
 import com.springBoot.data.repos.InterviewInfoRepository;
@@ -24,8 +27,19 @@ public class InfoService {
 		for (InterviewInfo info:infos){
 			List<Levels> levels = levelsRepository.getLevelsByReqId(info.getRequestId());
 			info.setLevels(levels);
+			Link link = ControllerLinkBuilder.linkTo(InfoController.class).slash("/retrieveInfo").slash(info.getRequestId()).withSelfRel();
+			info.add(link);
 		}
 		
 		return infos;
+	}
+	
+	public InterviewInfo getInfoById(long requestId){
+		InterviewInfo info = interviewInfoRepository.getInfoById(requestId);
+		List<Levels> levels = levelsRepository.getLevelsByReqId(info.getRequestId());
+		info.setLevels(levels);
+		
+		return info;
+		
 	}
 }
