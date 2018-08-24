@@ -46,7 +46,5 @@ public class Skills {
 	public void setJobDesc(String jobDesc) {
 		this.jobDesc = jobDesc;
 	}
-	
-	
 
 }

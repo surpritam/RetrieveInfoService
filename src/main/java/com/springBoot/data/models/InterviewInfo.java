@@ -6,11 +6,11 @@ import org.springframework.data.annotation.Transient;
 import org.springframework.data.cassandra.core.mapping.Column;
 import org.springframework.data.cassandra.core.mapping.PrimaryKey;
 import org.springframework.data.cassandra.core.mapping.Table;
-import org.springframework.hateoas.ResourceSupport;
+import org.springframework.hateoas.Link;
 
 
 @Table("InterviewInfo")
-public class InterviewInfo extends ResourceSupport {
+public class InterviewInfo{
 	@PrimaryKey("requestid")
 	private long requestId;
 	@Column(value = "totalnoofposition")
@@ -21,15 +21,16 @@ public class InterviewInfo extends ResourceSupport {
 	@Column(value = "projectname")
 	private String projectName;
 	
-	@Transient
 	private List<Levels> levels;
+	@Transient
+	private Link link;
 	
 	public InterviewInfo(){
 		
 	}
 
 	public InterviewInfo(long requestId, int totalNoOfPosition, String location, String client, String skillset,
-			String projectName, List<Levels> levels) {
+			String projectName, List<Levels> levels, Link link) {
 		super();
 		this.requestId = requestId;
 		this.totalNoOfPosition = totalNoOfPosition;
@@ -38,6 +39,7 @@ public class InterviewInfo extends ResourceSupport {
 		this.skillset = skillset;
 		this.projectName = projectName;
 		this.levels = levels;
+		this.link = link;
 	}
 
 	public long getRequestId() {
@@ -96,4 +98,15 @@ public class InterviewInfo extends ResourceSupport {
 		this.levels = levels;
 	}
 
+
+	public Link getLink() {
+		return link;
+	}
+
+
+	public void setLink(Link link) {
+		this.link = link;
+	}
+
+	
 }

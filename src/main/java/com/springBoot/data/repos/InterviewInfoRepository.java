@@ -14,5 +14,7 @@ public interface InterviewInfoRepository extends CassandraRepository<InterviewIn
 	
 	@Query(value = "Select * from InterviewInfo where requestid=?0 ALLOW FILTERING")
 	public InterviewInfo getInfoById(long requestId);
+	
+	
 
 }
